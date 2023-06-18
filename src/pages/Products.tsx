@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import {colors, colorsLogos} from '../constants/colors';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
 const accessToken = "W_XKBmAWLOb_qJJDgdpfw0VRgFgKjmM_1rdp0SAVcG0";
 const spaceId = "5zroeaevvcng";
 const query = `
@@ -141,9 +143,11 @@ class Products extends Component<Props, State> {
                     <img className="w-full h-64 object-cover object-center rounded-lg" src={product.image.url} alt={product.image.description} />
                   </div>
                 }
+               <Link to={`/product/${index}`}>
                 <button className="mt-auto bg-blue-500 text-white px-4 py-2 rounded-md self-center">
                   Ver detalles
                 </button>
+              </Link>
               </div>
             ))}
           </div>
