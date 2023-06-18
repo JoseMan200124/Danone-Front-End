@@ -1,12 +1,8 @@
-import { createClient } from 'contentful';
+import ApolloClient from 'apollo-boost';
 
-
-const client = createClient({
-    space: '5zroeaevvcng',
-    environment: 'master', 
-    accessToken: 'W_XKBmAWLOb_qJJDgdpfw0VRgFgKjmM_1rdp0SAVcG0'
-  })
-  
-
-
-export default client;
+export const client = new ApolloClient({
+  uri: `https://graphql.contentful.com/content/v1/spaces/5zroeaevvcng`,
+  headers: {
+    'Authorization': 'Bearer CFPAT-8_IBqneXBCklesbXNwYeuiyXb2-OKhjQhs6xDvHPUWg'
+  }
+});

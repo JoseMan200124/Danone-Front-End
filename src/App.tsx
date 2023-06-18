@@ -5,6 +5,8 @@ import Profile from './pages/Profile';
 import Products from './pages/Products';
 import Calories from './pages/Calories';
 import HomePage from './pages/HomePage'; 
+import Footer from './modules/Footer';
+
 function App() {
   return (
     <div className="font-sans">
@@ -16,6 +18,7 @@ function App() {
         <Route path="/calories" element={<Calories />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
+      <Footer/>
     </Router>
     </div>
   );
