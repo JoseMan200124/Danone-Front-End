@@ -1,24 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { FiUser, FiHeart, FiMail, FiPhone } from 'react-icons/fi';
-const accessToken = "W_XKBmAWLOb_qJJDgdpfw0VRgFgKjmM_1rdp0SAVcG0";
-const spaceId = "5zroeaevvcng";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
+const accessToken = process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN;
+const spaceId = process.env.REACT_APP_CONTENTFUL_SPACE_ID;
 const query = `
 {
   productCardCollection {
     items {
-      productName
-      productoImg {
-        url
-        description
-      }
-      productName2
-      productoImg2 {
-        url
-        description
-      }
-      productName3
-      productoImg3 {
+      productName1
+      productoImg1{
         url
         description
       }
@@ -32,16 +23,81 @@ const query = `
         url
         description
       }
-      productName6
-      productoImg6 {
-        url
-        description
-      }
+     
     }
   }
 }
 `;
-function Profile() {
+interface Props {}
+
+interface State {
+  products: Array<any>;
+  loading: boolean;
+  error: string | null;
+}
+
+
+class Profile extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      products: [],
+      loading: true,
+      error: null
+    };
+  }
+   componentDidMount() {
+    fetch(
+      `https://graphql.contentful.com/content/v1/spaces/${spaceId}/environments/master`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${accessToken}`
+        },
+        body: JSON.stringify({
+          query
+        })
+      }
+    )
+      .then(res => res.json())
+      .then(response => {
+        const { data } = response;
+        if (data) {
+          const productItems = data.productCardCollection.items[0]; 
+          const products = [];
+          for (let i = 0; i < 6; i++) {
+            products.push({
+              name: productItems[`productName${i+1}`],
+              image: productItems[`productoImg${i+1}`],
+            });
+          }
+          this.setState({
+            loading: false,
+            products,
+          });
+        }
+      })
+      .catch(error => {
+        this.setState({
+          loading: false,
+          error: error.message
+        });
+      });
+     
+  }
+  render(){
+    const { loading, error, products } = this.state;
+  
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+  
+    if (error) {
+      return <p>{error}</p>;
+    }
+  
   return (
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 bg-indigo-500 h-full">
       <div className="lg:text-center">
@@ -75,19 +131,36 @@ function Profile() {
 
       <div className="mt-10">
         <h2 className="text-3xl font-medium title-font mb-2 text-white text-center">Productos favoritos</h2>
+
+
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+         
+        {products.map((product, index) => (
+           product.image && 
+           <div key={index}>
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <img className="w-full h-48 object-cover object-center rounded-lg" src="#" alt="favorite product" />
-            <h2 className="title-font text-lg font-medium text-gray-900 mt-4 mb-2">Nombre del producto</h2>
+            <img className="w-full h-48 object-cover object-center rounded-lg" src={product.image.url} alt={product.image.description} />
+            <h2 className="title-font text-lg font-medium text-gray-900 mt-4 mb-2">{product.name}</h2>
             <p className="leading-relaxed mb-3 text-gray-700">Descripción del producto...</p>
-            <a href="/" className="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">Ver más
-              <FiHeart className="w-4 h-4 ml-2" />
-            </a>
+            <Link to={`/product/${index}`}>
+                <button className="mt-auto bg-blue-500 text-white px-4 py-2 rounded-md self-center">
+                  Ver detalles
+                  <FiHeart className="w-4 h-4 ml-2" />
+
+                </button>
+              </Link>
+           
           </div>
+          </div>
+        
+        ))}
         </div>
+      
       </div>
     </div>
   );
+  }
 }
 
 export default Profile;

@@ -35,12 +35,14 @@ filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscal
 }
 .slider-img {
   max-width: 600px;
-  max-height: 300px;
+  max-height: 400px;
   transition: all 0.5s ease;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1023px) {
   iframe {
     width: 100% !important;
   }
 }
+
+

@@ -12,7 +12,8 @@ function Calories() {
       autoplay: 1,
       controls: 0,
       loop: 1,
-      mute: 1, // Silenciar el video
+      mute: 1,
+      playlist: 'AeJikyMTADE', // Agrega el ID del video a la lista de reproducción
     },
   };
   const calculateCalories = (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +34,7 @@ function Calories() {
   return (
     <div>
       <div className="relative h-screen">
-        <YouTube videoId="MBiVdxlrARo" opts={opts} className="absolute inset-0 w-full h-full object-cover" />
+        <YouTube videoId="AeJikyMTADE" opts={opts} className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="absolute inset-0 flex items-center justify-center">
           <h2 className="text-6xl font-bold text-white">Cálculo de Calorías</h2>

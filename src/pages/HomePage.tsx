@@ -6,13 +6,19 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import YouTube from 'react-youtube';
 import Typewriter from 'typewriter-effect';
-const accessToken = "W_XKBmAWLOb_qJJDgdpfw0VRgFgKjmM_1rdp0SAVcG0";
-const spaceId = "5zroeaevvcng";
+import { FiUser, FiHeart, FiMail, FiPhone } from 'react-icons/fi';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+const accessToken = process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN;
+const spaceId = process.env.REACT_APP_CONTENTFUL_SPACE_ID;
 const query = `
 {
   productCardCollection {
     items {
-      
+      productName1
+      productoImg1{
+        url
+        description
+      }
       productName4
       productoImg4 {
         url
@@ -101,7 +107,19 @@ class HomePage extends Component<Props, State> {
     const opts = {
       height: '390',
       width: '640',
-      playerVars: { autoplay: 1 },
+      playerVars: { autoplay: 0 },
+    };
+    
+    const opts2 = {
+      height: '100%',
+      width: '100%',
+      playerVars: {
+        autoplay: 1,
+        controls: 0,
+        loop: 1,
+        mute: 1,
+        playlist: 'aDMzq10yUWA', // Agrega el ID del video a la lista de reproducción
+      },
     };
     const settings = {
       dots: false,
@@ -119,38 +137,60 @@ class HomePage extends Component<Props, State> {
   
     return (
       <>
-       
-       <div className="leading-normal tracking-normal text-white flex justify-center items-center flex-wrap" style={{background: `linear-gradient(90deg, ${colors.color300} 50%, ${colors.color500} 50%)`, height: '100vh',fontSize: '2.5rem', fontWeight: 'bold'}}>
-       <div className="w-full md:w-1/2">
-    <div className="flex justify-center items-center h-full">
-    <h1 className="text-[5rem] md:text-[8rem] lg:text-[12rem] font-bold">
-    <span className="bg-clip-text text-transparent bg-gradient-to-br from-white to-white">D</span>
-    <span>a</span>
-    <span className="bg-clip-text text-transparent bg-gradient-to-br from-white to-white">n</span>
-    <span>o</span>
-    <span className="bg-clip-text text-transparent bg-gradient-to-br from-white to-white">n</span>
-    <span>e</span>
-</h1>
-    </div>
-</div>
-
-          <div className="w-full md:w-1/2">
-            <Slider {...settings}>
-              {products.map((product, index) => (
-                product.image && 
-                <div key={index}>
-                  <img className="w-full h-auto object-cover object-center rounded-lg slider-img" src={product.image.url} alt={product.image.description} />
-                </div>
-              ))}
-            </Slider>
+       <div className="relative h-screen">
+        <YouTube videoId="aDMzq10yUWA" opts={opts2} className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-full md:w-1/2">
+              <div className="flex justify-center items-center h-full">
+              <h1 className="text-[5rem] md:text-[8rem] lg:text-[12rem] font-bold">
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-white to-white">D</span>
+              <span style={{ color: colors.color300 }}>a</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-white to-white">n</span>
+              <span style={{ color: colors.color300 }}>o</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-white to-white">n</span>
+              <span style={{ color: colors.color300 }}>e</span>
+          </h1>
+              </div>
           </div>
+         
         </div>
-        
+      </div>
+
         <div className="bg-blue-900 text-center py-12">
           <h1 className="text-4xl text-white font-bold">Productos de calidad de Danone</h1>
           <p className="text-xl text-white mt-4">En Danone, nos esforzamos por proporcionar productos de la más alta calidad a nuestros consumidores.</p>
         </div>
-  
+        <div className="mt-10">
+        <h2 className="text-3xl font-medium title-font mb-2 text-white text-center">Productos favoritos</h2>
+
+
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+         
+        {products.map((product, index) => (
+           product.image && 
+           <div key={index}>
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <img className="w-full h-48 object-cover object-center rounded-lg" src={product.image.url} alt={product.image.description} />
+            <h2 className="title-font text-lg font-medium text-gray-900 mt-4 mb-2">{product.name}</h2>
+            <p className="leading-relaxed mb-3 text-gray-700">Descripción del producto...</p>
+            <Link to={`/product/${index}`}>
+                <button className="mt-auto bg-blue-500 text-white px-4 py-2 rounded-md self-center">
+                  Ver detalles
+                  <FiHeart className="w-4 h-4 ml-2" />
+
+                </button>
+              </Link>
+           
+          </div>
+          </div>
+        
+        ))}
+        </div>
+      
+      </div>
+    
         <div className="container mx-auto py-12 bg-blue-500 transform skew-y-3">
           <div className="flex flex-col md:flex-row items-center justify-around transform -skew-y-3">
             <div className="px-4 text-center md:text-left mb-4 md:mb-0">

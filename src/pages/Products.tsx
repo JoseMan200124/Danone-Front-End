@@ -4,14 +4,15 @@ import React, { Component } from 'react';
 import {colors, colorsLogos} from '../constants/colors';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-const accessToken = "W_XKBmAWLOb_qJJDgdpfw0VRgFgKjmM_1rdp0SAVcG0";
-const spaceId = "5zroeaevvcng";
+
+const accessToken = process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN;
+const spaceId = process.env.REACT_APP_CONTENTFUL_SPACE_ID;
 const query = `
 {
   productCardCollection {
     items {
-      productName
-      productoImg {
+      productName1
+      productoImg1 {
         url
         description
       }
@@ -130,6 +131,10 @@ class Products extends Component<Props, State> {
           </div>
           <div className="border p-4 rounded-lg shadow-inner">
             <h4 className="font-bold mb-2 text-blue-600">Precio</h4>
+            <li><input type="checkbox" id="cat1" /><label htmlFor="cat1" className="ml-2">Precio 1</label></li>
+              <li><input type="checkbox" id="cat2" /><label htmlFor="cat2" className="ml-2">Precio 2</label></li>
+              <li><input type="checkbox" id="cat3" /><label htmlFor="cat3" className="ml-2">Precio 3</label></li>
+              <li><input type="checkbox" id="cat4" /><label htmlFor="cat4" className="ml-2">Precio 4</label></li>
             {/* Agrega los filtros de precio aquí */}
           </div>
         </aside>
