@@ -620,9 +620,6 @@ video {
 .h-8 {
   height: 2rem;
 }
-.h-auto {
-  height: auto;
-}
 .h-full {
   height: 100%;
 }
@@ -952,14 +949,8 @@ video {
 .leading-8 {
   line-height: 2rem;
 }
-.leading-normal {
-  line-height: 1.5;
-}
 .leading-relaxed {
   line-height: 1.625;
-}
-.tracking-normal {
-  letter-spacing: 0em;
 }
 .tracking-tight {
   letter-spacing: -0.025em;
@@ -1001,6 +992,9 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.opacity-40 {
+  opacity: 0.4;
 }
 .opacity-50 {
   opacity: 0.5;
@@ -1056,7 +1050,7 @@ filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscal
   transition: all 0.5s ease;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1023px) {
   iframe {
     width: 100% !important;
   }
@@ -1235,3 +1229,5 @@ filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscal
     font-size: 12rem;
   }
 }
+
+
