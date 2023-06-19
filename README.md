@@ -43,7 +43,7 @@ Danone Hackathon 2023
 </div>
 
 <h1>Danone México</h1>
-"Danone Eco Catalog" es una aplicación web desarrollada utilizando React, TypeScript, Contentful, GraphSql y Tailwind CSS. La aplicación está diseñada para ser utilizada en un hackathon organizado por Danone. El objetivo principal de la aplicación es proporcionar a los usuarios un catálogo de productos de gama ecológica de Danone y permitirles configurar su límite máximo de calorías diarias.
+"Danone Eco Catalog" es una aplicación web desarrollada utilizando React, TypeScript, Contentful, GraphQl y Tailwind CSS. La aplicación está diseñada para ser utilizada en un hackathon organizado por Danone. El objetivo principal de la aplicación es proporcionar a los usuarios un catálogo de productos de gama ecológica de Danone y permitirles configurar su límite máximo de calorías diarias.
 
 <h1>Tecnologías utilizadas</h1>
 
