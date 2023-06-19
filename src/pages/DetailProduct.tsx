@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { FiSave, FiActivity, FiUser } from 'react-icons/fi';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
+
 import {colors, colorsLogos} from '../constants/colors';
 import { profile } from 'console';
 
 const accessToken = process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN;
 const spaceId = process.env.REACT_APP_CONTENTFUL_SPACE_ID;
 
+const DetailProductWrapper = () => {
+  const { id } = useParams<{ id: string }>();
+  return <DetalleProducto id={id} />;
+};
 
-console.log(accessToken); 
-console.log(spaceId); 
 const query = `
 {
   productCardCollection {
@@ -69,7 +72,9 @@ const query = `
 `;
 
 
-interface Props {}
+interface Props{
+  id?: string;
+}
 
 interface State {
   perfil: Array<any>;
@@ -80,6 +85,7 @@ interface State {
 class DetalleProducto extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    const { id } = this.props;
 
     this.state = {
       perfil: [],
@@ -118,6 +124,7 @@ class DetalleProducto extends Component<Props, State> {
 
             });
           }
+          
             product.push({
               productoImage: productItems[`productoImg${1}`]
             })

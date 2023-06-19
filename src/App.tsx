@@ -6,6 +6,7 @@ import Products from './pages/Products';
 import Calories from './pages/Calories';
 import HomePage from './pages/HomePage'; 
 import Footer from './modules/Footer';
+import DetailProductWrapper from "./pages/DetailProduct"; 
 import DetailProduct from "./pages/DetailProduct";
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/products" element={<Products />} />
         <Route path="/calories" element={<Calories />} />
-        <Route path="/product/:id" element={<DetailProduct />} /> // Utiliza el parámetro dinámico :id
+        <Route path="/product/:id" element={<DetailProductWrapper />} />
 
         <Route path="/" element={<HomePage />} />
       </Routes>
